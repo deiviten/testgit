@@ -2,6 +2,11 @@
 
 echo iniciando commit-msg...
 echo args: $@
-git status
+
+branch=`git status | grep branch`
+echo branch: $branch
+
+message=`cat $1`
+echo message: $message
 
 echo finalizando commit-msg

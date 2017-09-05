@@ -2,6 +2,8 @@
 
 echo iniciando pre-commit...
 echo args: $@
-git status
+
+branch=`git status | grep branch`
+echo branch: $branch
 
 echo finalizando pre-commit
