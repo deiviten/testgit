@@ -3,7 +3,12 @@
 echo iniciando pre-commit...
 echo args: $@
 
-branch=`git status | grep branch`
+branch=`git status -b | grep branch`
+isDevelop=`git status -sb | grep develop`
+isMaster=`git status -sb | grep master`
+isFeature=`git status -sb | grep feature`
+isRelease=`git status -sb | grep release`
+isHotfix=`git status -sb | grep hotfix`
 echo branch: $branch
 
 echo finalizando pre-commit
