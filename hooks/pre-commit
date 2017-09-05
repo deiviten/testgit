@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo iniciando pre-commit...
+echo args: $@
+git status
+
+echo finalizando pre-commit

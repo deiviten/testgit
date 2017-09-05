@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo iniciando post-merge...
+echo args: $@
+git status
+
+echo finalizando post-merge

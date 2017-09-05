@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo iniciando pre-push...
+echo args: $@
+git status
+
+echo finalizando pre-push

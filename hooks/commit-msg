@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo iniciando commit-msg...
+echo args: $@
+git status
+
+echo finalizando commit-msg

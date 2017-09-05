@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo iniciando post-checkout...
+echo args: $@
+git status
+
+echo finalizando post-checkout
