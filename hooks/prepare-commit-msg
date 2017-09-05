@@ -1,12 +1,31 @@
 #!/bin/bash
 
-echo iniciando prepara-commit-msg...
+echo iniciando prepare-commit-msg...
 echo args: $@
 
-branch=`git status | grep branch`
+branch=`git status -b | grep branch`
+isDevelop=`git status -sb | grep develop`
+isMaster=`git status -sb | grep master`
+isFeature=`git status -sb | grep feature`
+isRelease=`git status -sb | grep release`
+isHotfix=`git status -sb | grep hotfix`
 echo branch: $branch
 
 message=`cat $1`
 echo message: $message
+
+if [ "$isDevelop" != "" ]; then
+	echo [patch] $message > $1
+	npm version --no-git-tag-version patch
+	git add package.json
+fi
+
+version=`cat package.json | grep version | awk '{print $2}' FS=":" | sed 's/[\"\,\ ]//g'`
+
+if [ "$isFeature" != "" ]; then
+	echo [feature] $message > $1
+	npm version --no-git-tag-version $version-rc0
+	git add package.json
+fi
 
 echo finalizando pre-commit
