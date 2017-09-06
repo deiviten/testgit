@@ -13,9 +13,9 @@ echo $version
 
 if [ "$1" != "$2" ]; then
 #  echo commiting diffs...
-  npm version --no-git-tag-version patch
-  git add package.json
-  git commit -am "updating version before merge"
+#  npm version --no-git-tag-version patch
+#  git add package.json
+#  git commit -am "updating version before merge"
 fi
 
 echo finalizando post-checkout
