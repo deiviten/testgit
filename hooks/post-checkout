@@ -7,7 +7,7 @@ git status
 branch=`git status -b | grep branch`
 echo branch: $branch
 
-version=`git log -p $2 -1 package.json | grep "+  \"version" | awk '{print $2}' FS=":" | sed -s 's/[\,\"\ ]//g'`
+version=`git log -p $2 -1 package.json | grep "+  \"version" | awk '{print $2}' FS=":" | sed 's/[\,\"\ ]//g'`
 echo $version
 
 
