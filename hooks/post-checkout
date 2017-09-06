@@ -11,11 +11,11 @@ version=`git log -p $2 -1 package.json | grep "+  \"version" | awk '{print $2}' 
 echo $version
 
 
-if [ "$1" != "$2" ]; then
+#if [ "$1" != "$2" ]; then
 #  echo commiting diffs...
 #  npm version --no-git-tag-version patch
 #  git add package.json
 #  git commit -am "updating version before merge"
-fi
+#fi
 
 echo finalizando post-checkout
