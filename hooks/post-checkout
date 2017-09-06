@@ -4,4 +4,13 @@ echo iniciando post-checkout...
 echo args: $@
 git status
 
+version=`git log -p $2 -1 package.json | grep "+  \"version" | awk '{print $2}' FS=":" | sed -s 's/[\,\"\ ]//g'`
+
+if [ "$1" != "$2" ]; then
+  echo commiting diffs...
+  npm version --no-git-tag-version patch
+  git add package.json
+  git commit -am "updating version before merge"
+fi
+
 echo finalizando post-checkout
