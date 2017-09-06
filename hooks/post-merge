@@ -37,8 +37,8 @@ if [ "$version" != "" ]; then
       echo v0 $v0
       v=$((v+1))
       npm version --no-git-tag-version $v0
-      npm version --no-git-tag-version patch
       git add package.json
+      git commit -am "post-merge commit"
     fi
   else
     echo "feature"
