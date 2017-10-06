@@ -1,5 +1,8 @@
 #!/bin/bash
-export DOT_GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
+. ./utils
+
+log_info probando....
+
 echo iniciando post-checkout...
 echo usando args: $@
 git status

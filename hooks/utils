@@ -1,0 +1,17 @@
+#!/bin/bash
+
+red='\033[0;31m'
+green='\033[0;32m'
+NC='\033[0m' # No Color
+
+log_info() {
+  echo -e consoleLog "\n${green}$1${NC}"
+}
+
+log_error() {
+  echo -e consoleLog "\n${red}$1${NC}"
+}
+
+consoleLog() {
+    echo '['$(date +'%a %Y-%m-%d %H:%M:%S %z')']' $1 >> /tmp/git.log
+}
