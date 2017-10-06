@@ -26,7 +26,7 @@ if [ "$version" != "" ]; then
     echo "no feature"
     if [ "$hasRC" == "" ]; then
       echo "noRC"
-      if [ "$isMerge" == "" ]; then
+      if [ "$hasMerge" == "" ]; then
         echo no es un merge....
         npm version --no-git-tag-version patch
         git add package.json
