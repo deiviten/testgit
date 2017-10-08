@@ -19,7 +19,8 @@ log_info "message: $message"
 isMerge=`echo $message | grep Merge`
 
 if [ "$isMerge" != "" ]; then
-	git flow feature finish $featureName
+	log_info "is from merge..."
+	git flow feature finish $featureName >> /tmp/git.log
 fi
 
 log_info "finalizando commit-msg"
