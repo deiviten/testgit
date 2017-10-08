@@ -1,7 +1,8 @@
 #!/bin/bash
+. ./hooks/utils
 
-echo iniciando pre-push...
-echo args: $@
+log_info "iniciando pre-push..."
+log_info "args: $@"
 git status
 
-echo finalizando pre-push
+log_info "finalizando pre-push"
