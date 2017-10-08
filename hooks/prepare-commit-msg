@@ -28,4 +28,4 @@ fi
 version=`cat package.json | grep version | awk '{print $2}' FS=":" | sed 's/[\"\,\ ]//g'`
 log_info "package version: $version"
 
-log_info "finalizando pre-commit"
+log_info "finalizando prepare-commit-msg..."
