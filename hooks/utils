@@ -5,11 +5,13 @@ green='\033[0;32m'
 NC='\033[0m' # No Color
 
 log_info() {
-  echo -e consoleLog "\n${green}$1${NC}"
+  echo -e "\n${green}$1${NC}"
+  consoleLog $1
 }
 
 log_error() {
   echo -e consoleLog "\n${red}$1${NC}"
+  consoleLog $1
 }
 
 consoleLog() {
