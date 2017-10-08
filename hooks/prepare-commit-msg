@@ -1,7 +1,8 @@
 #!/bin/bash
-export DOT_GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
-echo iniciando prepare-commit-msg...
-echo args: $@
+. ./hooks/utils
+
+log_info "iniciando prepare-commit-msg..."
+log_info "args: $@"
 
 branch=`git status -b | grep branch`
 isDevelop=`git status -sb | grep develop`
@@ -9,10 +10,10 @@ isMaster=`git status -sb | grep master`
 isFeature=`git status -sb | grep feature`
 isRelease=`git status -sb | grep release`
 isHotfix=`git status -sb | grep hotfix`
-echo branch: $branch
+log_info "branch: $branch"
 
 message=`cat $1`
-echo message: $message
+log_info "message: $message"
 
 if [ "$isDevelop" != "" ]; then
 	echo [patch] $message > $1
@@ -24,4 +25,4 @@ if [ "$isFeature" != "" ]; then
 	echo [feature] $message > $1
 fi
 
-echo finalizando pre-commit
+log_info "finalizando pre-commit"

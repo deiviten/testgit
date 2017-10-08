@@ -1,7 +1,8 @@
 #!/bin/bash
-export DOT_GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
-echo iniciando commit-msg...
-echo args: $@
+. ./hooks/utils
+
+log_info "iniciando commit-msg..."
+log_info "args: $@"
 
 branch=`git status -b | grep branch`
 isDevelop=`git status -sb | grep develop`
@@ -9,9 +10,9 @@ isMaster=`git status -sb | grep master`
 isFeature=`git status -sb | grep feature`
 isRelease=`git status -sb | grep release`
 isHotfix=`git status -sb | grep hotfix`
-echo branch: $branch
+log_info "branch: $branch"
 
 message=`cat $1`
-echo message: $message
+log_info "message: $message"
 
-echo finalizando commit-msg
+log_info "finalizando commit-msg"

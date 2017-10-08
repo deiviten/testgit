@@ -1,18 +1,15 @@
 #!/bin/bash
-pwd
 . ./hooks/utils
 
-log_info probando....
-
-echo iniciando post-checkout...
-echo usando args: $@
+log_info "iniciando post-checkout..."
+log_info "usando args: $@"
 git status
 
 branch=`git status -b | grep branch`
-echo usando branch: $branch
+log_info "usando branch: $branch"
 
 version=`git log -p $2 -1 package.json | grep "+  \"version" | awk '{print $2}' FS=":" | sed 's/[\,\"\ ]//g'`
-echo usando version $version
+log_info "usando version $version"
 
 #git checkout --ours package.json
 #if [ "$1" != "$2" ]; then
@@ -22,4 +19,4 @@ echo usando version $version
 #  git commit -am "updating version before merge"
 #fi
 
-echo finalizando post-checkout
+log_info "finalizando post-checkout"
