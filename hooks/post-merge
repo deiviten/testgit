@@ -9,6 +9,7 @@ branch=`git status -b | grep branch`
 isDevelop=`git status -sb | grep develop`
 isMaster=`git status -sb | grep master`
 isFeature=`git status -sb | grep feature`
+featureName=`git status -sb | grep feature | awk '{print $2}' FS="/"`
 isRelease=`git status -sb | grep release`
 isHotfix=`git status -sb | grep hotfix`
 log_info "branch: $branch"
@@ -33,7 +34,7 @@ if [ "$version" != "" ]; then
         git add package.json
       else
       	log_info "es un merge...."
-      	# git flow feature finish
+      	git flow feature finish $featureName
       fi
     else
       log_info "es una RC"
