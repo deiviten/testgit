@@ -15,14 +15,17 @@ log_info "branch: $branch"
 message=`cat $1`
 log_info "message: $message"
 
-if [ "$isDevelop" != "" ]; then
+isMerge=`echo $message | grep Merge`
+
+if [ "$isMerge" != "" ]; then
+	echo [merge] $message > $1
+elif [ "$isDevelop" != "" ]; then
 	echo [patch] $message > $1
+elif [ "$isFeature" != "" ]; then
+	echo [feature] $message > $1
 fi
 
 version=`cat package.json | grep version | awk '{print $2}' FS=":" | sed 's/[\"\,\ ]//g'`
-
-if [ "$isFeature" != "" ]; then
-	echo [feature] $message > $1
-fi
+log_info "package version: $version"
 
 log_info "finalizando pre-commit"
