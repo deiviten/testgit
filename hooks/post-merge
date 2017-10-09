@@ -26,6 +26,9 @@ version=`cat package.json | grep version | awk '{print $2}' FS=":" | sed 's/[\"\
 
 hasRC=`echo $version | grep rc`
 message=`cat "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG`
+
+log_info "$message"
+
 hasMerge=`echo $message | grep "Merge"`
 
 if [ "$version" != "" ]; then
