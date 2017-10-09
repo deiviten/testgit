@@ -20,7 +20,7 @@ isHotfix=`git status -sb | grep hotfix`
 log_info "branch: $branch"
 
 if [ "$isMaster" != "" ]; then
-  npm version minor
+  npm version --no-git-tag-version minor
   # git add package.json
   version=`cat package.json | grep version | awk '{print $2}' FS=":" | sed 's/[\"\,\ ]//g'`
   log_info "new version: $version"
