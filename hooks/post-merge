@@ -75,4 +75,7 @@ if [ "$version" != "" ]; then
   fi
 fi
 
+pwd=`pwd`
+log_info "$pwd"
+
 log_info "finalizando post-merge"

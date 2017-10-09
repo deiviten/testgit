@@ -29,7 +29,10 @@ log_info "package version: $version"
 hasRC=`echo $version | grep rc`
 
 if [ "$isMerge" != "" ]; then
-	echo [merge] $message > $1
+  hasMerge=`echo $message | grep "[merge]"`
+  if [ "$hasMerge" == "" ]; then
+    echo [merge] $message > $1
+  fi
   if [ "$hasRC" != "" ]; then
     log_info "no RC"
     # npm version --no-git-tag-version patch
