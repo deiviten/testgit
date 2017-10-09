@@ -1,0 +1,49 @@
+#!/bin/bash
+. ./hooks/utils
+
+ACTIVE=`cat ./hooks/ACTIVE | grep 0`
+
+if [ "$ACTIVE" != "" ]; then
+  log_info "prepare-commit-msg... no active"
+  exit 0
+fi
+
+log_info "iniciando prepare-commit-msg..."
+log_info "args: $@"
+
+branch=`git status -b | grep branch`
+isDevelop=`git status -sb | grep develop`
+isMaster=`git status -sb | grep master`
+isFeature=`git status -sb | grep feature`
+isRelease=`git status -sb | grep release`
+isHotfix=`git status -sb | grep hotfix`
+log_info "branch: $branch"
+
+message=`cat $1`
+log_info "message: $message"
+
+isMerge=`echo $message | grep Merge`
+
+version=`cat package.json | grep version | awk '{print $2}' FS=":" | sed 's/[\"\,\ ]//g'`
+log_info "package version: $version"
+hasRC=`echo $version | grep rc`
+
+if [ "$isMerge" != "" ]; then
+  hasMerge=`echo $message | grep "\[merge\]"`
+  if [ "$hasMerge" == "" ]; then
+    echo [merge] $message > $1
+  fi
+  if [ "$hasRC" != "" ]; then
+    log_info "no RC"
+    # npm version --no-git-tag-version patch
+    # git add package.json
+  fi
+elif [ "$isDevelop" != "" ]; then
+	echo [patch] $message > $1
+elif [ "$isFeature" != "" ]; then
+	echo [feature] $message > $1
+fi
+
+
+
+log_info "finalizando prepare-commit-msg..."

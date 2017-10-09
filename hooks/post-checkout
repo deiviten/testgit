@@ -1,0 +1,29 @@
+#!/bin/bash
+. ./hooks/utils
+
+ACTIVE=`cat ./hooks/ACTIVE | grep 0`
+
+if [ "$ACTIVE" != "" ]; then
+  log_info "post-checkout... no active"
+  exit 0
+fi
+
+log_info "iniciando post-checkout..."
+log_info "usando args: $@"
+git status
+
+branch=`git status -b | grep branch`
+log_info "usando branch: $branch"
+
+version=`git log -p $2 -1 package.json | grep "+  \"version" | awk '{print $2}' FS=":" | sed 's/[\,\"\ ]//g'`
+log_info "usando version $version"
+
+#git checkout --ours package.json
+#if [ "$1" != "$2" ]; then
+#  echo commiting diffs...
+#  npm version --no-git-tag-version patch
+#  git add package.json
+#  git commit -am "updating version before merge"
+#fi
+
+log_info "finalizando post-checkout"
