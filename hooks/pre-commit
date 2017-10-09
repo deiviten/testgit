@@ -35,8 +35,10 @@ if [ "$version" != "" ]; then
       log_info "noRC"
       if [ "$isMerge" == "" ]; then
         log_info "no es un merge...."
-        npm version --no-git-tag-version patch
-        git add package.json
+        if [ "$isMaster" == "" ]; then
+          npm version --no-git-tag-version patch
+          git add package.json
+        fi
       fi
     else
       log_info "es una RC"
