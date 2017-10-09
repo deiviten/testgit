@@ -1,6 +1,13 @@
 #!/bin/bash
 . ./hooks/utils
 
+ACTIVE=`cat ACTIVE | grep 0`
+
+if [ "$ACTIVE" != "" ]; then
+  log_info "no active"
+  exit 0
+fi
+
 log_info "iniciando pre-commit..."
 log_info "args: $@"
 
