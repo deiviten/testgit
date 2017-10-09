@@ -1,6 +1,13 @@
 #!/bin/bash
 . ./hooks/utils
 
+ACTIVE=`cat ./hooks/ACTIVE | grep 0`
+
+if [ "$ACTIVE" != "" ]; then
+  log_info "post-checkout... no active"
+  exit 0
+fi
+
 log_info "iniciando post-checkout..."
 log_info "usando args: $@"
 git status

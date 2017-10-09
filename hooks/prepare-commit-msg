@@ -1,6 +1,13 @@
 #!/bin/bash
 . ./hooks/utils
 
+ACTIVE=`cat ./hooks/ACTIVE | grep 0`
+
+if [ "$ACTIVE" != "" ]; then
+  log_info "prepare-commit-msg... no active"
+  exit 0
+fi
+
 log_info "iniciando prepare-commit-msg..."
 log_info "args: $@"
 

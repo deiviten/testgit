@@ -1,6 +1,13 @@
 #!/bin/bash
 . ./hooks/utils
 
+ACTIVE=`cat ./hooks/ACTIVE | grep 0`
+
+if [ "$ACTIVE" != "" ]; then
+  log_info "pre-push... no active"
+  exit 0
+fi
+
 log_info "iniciando pre-push..."
 log_info "args: $@"
 git status
