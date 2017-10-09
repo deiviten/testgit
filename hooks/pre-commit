@@ -1,7 +1,8 @@
 #!/bin/bash
 . ./hooks/utils
 
-ACTIVE=`cat ACTIVE | grep 0`
+
+ACTIVE=`cat ./hooks/ACTIVE | grep 0`
 
 if [ "$ACTIVE" != "" ]; then
   log_info "no active"
