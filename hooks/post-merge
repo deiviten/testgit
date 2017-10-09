@@ -34,7 +34,8 @@ if [ "$version" != "" ]; then
         git add package.json
       else
       	log_info "es un merge...."
-      	git flow feature finish $featureName
+        exit 0
+      	# git flow feature finish $featureName
       fi
     else
       log_info "es una RC"
