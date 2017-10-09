@@ -21,7 +21,7 @@ log_info "branch: $branch"
 
 if [ "$isMaster" != "" ]; then
   npm version minor
-  git add package.json
+  # git add package.json
   version=`cat package.json | grep version | awk '{print $2}' FS=":" | sed 's/[\"\,\ ]//g'`
   log_info "new version: $version"
   # git commit -m "updating master to version $version"
