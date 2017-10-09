@@ -78,4 +78,6 @@ fi
 pwd=`pwd`
 log_info "$pwd"
 
+echo "" > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
+
 log_info "finalizando post-merge"
