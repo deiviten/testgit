@@ -54,7 +54,7 @@ if [ "$version" != "" ]; then
       v=$((v+1))
       npm version --no-git-tag-version $v0
       git add package.json
-      git commit -m "$message"
+      git commit -m "$message. Updated package.json version"
     fi
   else
     log_info "feature"
