@@ -37,7 +37,12 @@ if [ "$isMerge" != "" ]; then
     echo [merge] $message > $1
   fi
   if [ "$hasRC" != "" ]; then
-    log_info "no RC"
+    log_info "merge de una rc"
+    newMessage=`echo $message from merge`
+    echo $newMessage > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
+    git commit -m "$newMessage"
+    echo "" > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
+    exit 1
     # npm version --no-git-tag-version patch
     # git add package.json
   fi
