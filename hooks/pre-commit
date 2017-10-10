@@ -44,6 +44,7 @@ hasRC=`echo $version | grep rc`
 v0=`echo $version | awk '{print $1}' FS='-rc'`
 v=`echo $version | awk '{print $2}' FS='-rc'`
 
+
 nextVersion=$version
 
 if [ "$isFeature" != "" ]; then
