@@ -65,9 +65,10 @@ if [ "$isDevelop" != "" ]; then
   nextVersion=patch
   if [ "$hasRC" != "" ]; then
     log_info "with rc"
+    vr=`echo $v0 | awk '{print $1"."$2"."}' FS="."`
     vp=`echo $v0 | awk '{print $3}' FS='.'`
     vp=$((vp+1))
-    nextVersion=$vp
+    nextVersion=$vr$vp
   fi
   if [ "$toMaster" != "" ]; then
     log_info "to Master"
