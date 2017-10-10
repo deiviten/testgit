@@ -27,4 +27,5 @@ if [ "$isMaster" != "" ]; then
   # git commit -m "updating master to version $version"
 fi
 
+
 log_info "finalizando pre-push"
