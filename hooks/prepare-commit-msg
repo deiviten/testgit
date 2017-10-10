@@ -42,7 +42,7 @@ if [ "$isMerge" != "" ]; then
   fi
 elif [ "$isDevelop" != "" ]; then
   if [ "$toMaster" != ""]; then
-    git commit -m "$message"
+    git commit -m "$message from prepare"
     exit 1
   fi
 	echo [patch] $message > $1

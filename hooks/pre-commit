@@ -30,7 +30,7 @@ message=`cat "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG`
 log_info "commit message: $message"
 isMerge=`echo $message | grep "Merge"`
 
-toMaster=`echo $message | grep "toMaster"`
+toMaster=`echo $message | grep "from prepare"`
 
 version=`cat package.json | grep version | awk '{print $2}' FS=":" | sed 's/[\"\,\ ]//g'`
 log_info "on version: $version"
