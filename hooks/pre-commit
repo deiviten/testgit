@@ -8,6 +8,13 @@ if [ "$ACTIVE" != "" ]; then
   exit 0
 fi
 
+updateVersion() {
+  log_info "new package.json version: $1"
+  npm version --no-git-tag-version $1
+  git add package.json
+  log_info "finalizando pre-commit"
+}
+
 log_info "iniciando pre-commit..."
 log_info "args: $@"
 
@@ -19,59 +26,51 @@ isRelease=`git status -sb | grep release`
 isHotfix=`git status -sb | grep hotfix`
 log_info "branch: $branch"
 
-version=`cat package.json | grep version | awk '{print $2}' FS=":" | sed 's/[\"\,\ ]//g'`
-
-
-hasRC=`echo $version | grep rc`
 message=`cat "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG`
-log_info "$message"
+log_info "commit message: $message"
 isMerge=`echo $message | grep "Merge"`
 
-if [ "$version" != "" ]; then
-#   git tag -a "v$version" -m "`git log -1 --format=%s`"
-  log_info "on version: $version"
-  if [ "$isFeature" == "" ]; then
-    log_info "no feature"
-    if [ "$hasRC" == "" ]; then
-      log_info "noRC"
-      if [ "$isMerge" == "" ]; then
-        log_info "no es un merge...."
-        if [ "$isMaster" == "" ]; then
-          npm version --no-git-tag-version patch
-          git add package.json
-        fi
-      else
-        if [ "$isMaster" != "" ]; then
-          npm version --no-git-tag-version minor
-          git add package.json
-        fi
-      fi
-    else
-      log_info "es una RC"
-      v0=`echo $version | awk '{print $1}' FS='-rc'`
-      log_info "v0 $v0"
-      v=$((v+1))
-      npm version --no-git-tag-version $v0
-      npm version --no-git-tag-version patch
-      git add package.json
-    fi
-  else
-    log_info "feature"
-    if [ "$hasRC" == "" ]; then
-      log_info "noRC"
-      npm version --no-git-tag-version $version-rc0
-      git add package.json
-    else
-      log_info "es una RC"
-      v0=`echo $version | awk '{print $1}' FS='rc'`
-      log_info "v0 $v0"
-      v=`echo $version | awk '{print $2}' FS='rc'`
-      log_info "v $v"
-      v=$((v+1))
-      npm version --no-git-tag-version $v0'rc'$v
-      git add package.json
-    fi
-  fi
+toMaster=`echo $message | grep "from prepare"`
+
+version=`cat package.json | grep version | awk '{print $2}' FS=":" | sed 's/[\"\,\ ]//g'`
+log_info "on version: $version"
+
+if [ "$version" == "" ]; then
+  log_info "no version found"
+  exit 0
 fi
 
-log_info "finalizando pre-commit"
+hasRC=`echo $version | grep rc`
+v0=`echo $version | awk '{print $1}' FS='-rc'`
+v=`echo $version | awk '{print $2}' FS='-rc'`
+
+nextVersion=$version
+
+if [ "$isFeature" != "" ]; then
+  log_info "is Feature"
+  if [ "$hasRC" == "" ]; then
+    log_info "without rc"
+    nextVersion=$v0-rc0
+  else
+    log_info "with rc"
+    v=$((v+1))
+    nextVersion=$v0'-rc'$v
+  fi
+  updateVersion "$nextVersion"
+fi
+
+if [ "$isDevelop" != "" ]; then
+  log_info "is Develop"
+  nextVersion=patch
+  if [ "$hasRC" != "" ]; then
+    log_info "with rc"
+    vp=`echo $v0 | awk '{print $3}' FS='.'`
+    vp=$((vp+1))
+    nextVersion=$vp
+  fi
+  if [ "$toMaster" != "" ]; then
+    log_info "to Master"
+    nextVersion=minor
+  fi
+  updateVersion "$nextVersion"
+fi
