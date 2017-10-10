@@ -49,7 +49,7 @@ elif [ "$isDevelop" != "" ]; then
     echo "" > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
     exit 1
   fi
-	echo [patch] $message | sed 's/"from prepare"//g' > $1
+	echo [patch] $message | sed 's/ from prepare//g' > $1
 elif [ "$isFeature" != "" ]; then
 	echo [feature] $message > $1
 fi
