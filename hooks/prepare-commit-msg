@@ -42,7 +42,7 @@ if [ "$isMerge" != "" ]; then
     # git add package.json
   fi
 elif [ "$isDevelop" != "" ]; then
-  if [ "$toMaster" != "" && "$fromPrepare" == "" ]; then
+  if [ "$toMaster" != "" ] && [ "$fromPrepare" == "" ]; then
     newMessage=`echo $message from prepare`
     echo $newMessage > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
     git commit -m "$newMessage"
