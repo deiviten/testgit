@@ -46,6 +46,7 @@ elif [ "$isDevelop" != "" ]; then
     newMessage=`echo $message from prepare`
     echo $newMessage > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
     git commit -m "$newMessage"
+    echo "" > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
     exit 1
   fi
 	echo [patch] $message > $1
