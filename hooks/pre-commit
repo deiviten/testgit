@@ -8,6 +8,13 @@ if [ "$ACTIVE" != "" ]; then
   exit 0
 fi
 
+updateVersion() {
+  log_info "new package.json version: $1"
+  npm version --no-git-tag-version $1
+  git add package.json
+  log_info "finalizando pre-commit"
+}
+
 log_info "iniciando pre-commit..."
 log_info "args: $@"
 
@@ -67,10 +74,3 @@ if [ "$isDevelop" != "" ]; then
   fi
   updateVersion "$nextVersion"
 fi
-
-updateVersion() {
-  log_info "new package.json version: $1"
-  npm version --no-git-tag-version $1
-  git add package.json
-  log_info "finalizando pre-commit"
-}
