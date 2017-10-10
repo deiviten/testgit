@@ -55,6 +55,4 @@ elif [ "$isFeature" != "" ]; then
 fi
 
 
-
-
 log_info "finalizando prepare-commit-msg..."
