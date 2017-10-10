@@ -31,50 +31,6 @@ log_info "$message"
 
 hasMerge=`echo $message | grep "Merge"`
 
-if [ "$version" != "" ]; then
-#   git tag -a "v$version" -m "`git log -1 --format=%s`"
-  log_info "on version: $version"
-  if [ "$isFeature" == "" ]; then
-    log_info "no feature"
-    if [ "$hasRC" == "" ]; then
-      log_info "noRC"
-      if [ "$hasMerge" == "" ]; then
-        log_info "no es un merge...."
-        npm version --no-git-tag-version patch
-        git add package.json
-      else
-      	log_info "es un merge...."
-        exit 0
-      	# git flow feature finish $featureName
-      fi
-    else
-      log_info "es una RC"
-      v0=`echo $version | awk '{print $1}' FS='-rc'`
-      log_info "v0 $v0"
-      v=$((v+1))
-      npm version --no-git-tag-version $v0
-      git add package.json
-      git commit -m "$message. Updated package.json version"
-    fi
-  else
-    log_info "feature"
-    if [ "$hasRC" == "" ]; then
-      log_info "noRC"
-      npm version --no-git-tag-version $version-rc0
-      git add package.json
-    else
-      log_info "es una RC"
-      v0=`echo $version | awk '{print $1}' FS='rc'`
-      log_info "v0 $v0"
-      v=`echo $version | awk '{print $2}' FS='rc'`
-      log_info "v $v"
-      v=$((v+1))
-      npm version --no-git-tag-version $v0'rc'$v
-      git add package.json
-    fi
-  fi
-fi
-
 echo "" > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
 
 log_info "finalizando post-merge"
