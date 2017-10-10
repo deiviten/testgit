@@ -22,6 +22,8 @@ log_info "branch: $branch"
 message=`cat $1`
 log_info "message: $message"
 
+toMaster=`echo $message | grep "toMaster"`
+
 isMerge=`echo $message | grep Merge`
 
 version=`cat package.json | grep version | awk '{print $2}' FS=":" | sed 's/[\"\,\ ]//g'`
@@ -39,6 +41,10 @@ if [ "$isMerge" != "" ]; then
     # git add package.json
   fi
 elif [ "$isDevelop" != "" ]; then
+  if [ "$toMaster" != ""]; then
+    git commit -m "$message"
+    exit 1
+  fi
 	echo [patch] $message > $1
 elif [ "$isFeature" != "" ]; then
 	echo [feature] $message > $1
