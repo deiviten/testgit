@@ -56,4 +56,5 @@ fi
 
 
 
+
 log_info "finalizando prepare-commit-msg..."
