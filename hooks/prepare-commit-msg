@@ -23,6 +23,7 @@ message=`cat $1`
 log_info "message: $message"
 
 toMaster=`echo $message | grep "toMaster"`
+fromPrepare=`echo $message | grep "from prepare"`
 
 isMerge=`echo $message | grep Merge`
 
@@ -41,8 +42,9 @@ if [ "$isMerge" != "" ]; then
     # git add package.json
   fi
 elif [ "$isDevelop" != "" ]; then
-  if [ "$toMaster" != ""]; then
+  if [ "$toMaster" != "" && "$fromPrepare" == "" ]; then
     newMessage=`echo $message from prepare`
+    echo $newMessage > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
     git commit -m "$newMessage"
     exit 1
   fi
