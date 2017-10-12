@@ -34,14 +34,18 @@ hasRC=`echo $version | grep rc`
 if [ "$isMerge" != "" ]; then
   hasMerge=`echo $message | grep "\[merge\]"`
   if [ "$hasMerge" == "" ]; then
+  	log_info "no tiene merge"
     echo [merge] $message > $1
+    message="[merge] $message"
   fi
   if [ "$hasRC" != "" ]; then
     log_info "merge de una rc"
     newMessage=`echo $message from merge`
-    echo $newMessage > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
+    log_info "newMessage: $newMessage"
+    echo $newMessage > $1
     git commit -m "$newMessage"
-    echo "" > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
+    log_info "output: $?"
+    # echo "" > $1
     exit 1
     # npm version --no-git-tag-version patch
     # git add package.json
@@ -49,9 +53,10 @@ if [ "$isMerge" != "" ]; then
 elif [ "$isDevelop" != "" ]; then
   if [ "$toMaster" != "" ] && [ "$fromPrepare" == "" ]; then
     newMessage=`echo $message from prepare`
-    echo $newMessage > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
+    echo $newMessage > $1
     git commit -m "$newMessage"
-    echo "" > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
+    log_info "output: $?"
+    echo "" > $1
     exit 1
   fi
 	echo [patch] $message | sed 's/ from prepare//g' > $1
