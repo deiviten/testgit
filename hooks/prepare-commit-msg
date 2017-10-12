@@ -36,7 +36,7 @@ if [ "$isMerge" != "" ]; then
   if [ "$hasMerge" == "" ]; then
   	log_info "no tiene merge"
     echo [merge] $message > $1
-    log_info "$1"
+    message="[merge] $message"
   fi
   if [ "$hasRC" != "" ]; then
     log_info "merge de una rc"
