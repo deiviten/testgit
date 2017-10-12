@@ -44,6 +44,7 @@ if [ "$isMerge" != "" ]; then
     newMessage=`echo $message from merge`
     echo $newMessage > $1
     git commit -m "$newMessage"
+    log_info "output: $?"
     echo "" > $1
     exit 1
     # npm version --no-git-tag-version patch
