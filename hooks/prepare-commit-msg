@@ -40,7 +40,7 @@ if [ "$isMerge" != "" ]; then
   fi
   if [ "$hasRC" != "" ]; then
     log_info "merge de una rc"
-    newMessage=`echo $1 from merge`
+    newMessage=`echo $message from merge`
     echo $newMessage > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
     git commit -m "$newMessage"
     echo "" > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
@@ -50,7 +50,7 @@ if [ "$isMerge" != "" ]; then
   fi
 elif [ "$isDevelop" != "" ]; then
   if [ "$toMaster" != "" ] && [ "$fromPrepare" == "" ]; then
-    newMessage=`echo $1 from prepare`
+    newMessage=`echo $message from prepare`
     echo $newMessage > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
     git commit -m "$newMessage"
     echo "" > "$(git rev-parse --show-toplevel)"/.git/COMMIT_EDITMSG
