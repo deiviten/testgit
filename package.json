@@ -1,6 +1,6 @@
 {
   "name": "testgit",
-  "version": "1.12.12",
+  "version": "1.12.13",
   "description": "testgit",
   "main": "index.js",
   "scripts": {

@@ -54,6 +54,7 @@ elif [ "$isDevelop" != "" ]; then
     newMessage=`echo $message from prepare`
     echo $newMessage > $1
     git commit -m "$newMessage"
+    log_info "output: $?"
     echo "" > $1
     exit 1
   fi
