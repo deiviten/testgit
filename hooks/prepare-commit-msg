@@ -34,7 +34,9 @@ hasRC=`echo $version | grep rc`
 if [ "$isMerge" != "" ]; then
   hasMerge=`echo $message | grep "\[merge\]"`
   if [ "$hasMerge" == "" ]; then
+  	log_info "no tiene merge"
     echo [merge] $message > $1
+    log_info "$1"
   fi
   if [ "$hasRC" != "" ]; then
     log_info "merge de una rc"
